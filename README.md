@@ -17,7 +17,7 @@ npm run dev
 - `public/profile.jpg`: portrait.
 - `index.html`: search and sharing metadata.
 
-Writing and news sections stay hidden until entries are added. Their navigation links and section numbers update automatically. See [HOW-TO-UPDATE.md](HOW-TO-UPDATE.md) for the entry format.
+Writing and news sections stay hidden until entries are added. Their navigation links update automatically. See [HOW-TO-UPDATE.md](HOW-TO-UPDATE.md) for the entry format.
 
 ## Check
 
