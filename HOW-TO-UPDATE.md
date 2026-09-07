@@ -1,58 +1,28 @@
-# How to Update Your Website
+# Updating your site
 
-## 📷 Adding Your Profile Photo
+## Biography and links
 
-1. **Add your photo to the public folder:**
-   - Place your photo in `public/` folder
-   - Name it `profile.jpg` (or update the filename in App.tsx)
-   - Recommended size: 500x500px or larger, square aspect ratio
+Edit the paragraphs in `src/App.tsx`. Update your name, email, and social links in the `personal` object in `src/content.ts`.
 
-2. **The photo will automatically appear** once you rebuild and deploy
+The current copy uses past experience rather than asserting a current employer or student status. Update it when you want to feature what you are doing now.
 
-## ✏️ Editing Content
+## Work, writing, and news
 
-**All your content is at the top of `src/App.tsx`** - look for the section marked:
-```
-// EDIT YOUR CONTENT HERE - Easy to modify!
-```
+Each section in `src/content.ts` contains an `entries` array. Add entries in the order you want them displayed. Each entry has:
 
-### Personal Information
-Update the `PERSONAL_INFO` object:
-- `name` - Your full name
-- `tagline` - Your professional title/description
-- `description` - Your bio paragraph
-- `email` - Your contact email
-- `social` - Your social media links
+- `title`: the linked heading.
+- `description`: a short sentence explaining it.
+- `href`: the full destination URL.
+- `meta`: a short label or date, such as `Essay · September 2026`.
 
-### Timeline/Experience
-Update the `TIMELINE_ITEMS` array:
-- Add/remove/edit your experiences
-- Each item has: title, organization, period, description
-- Types: "education", "work", "research"
+Use an empty array to hide a section. Adding its first entry automatically reveals the section and its navigation link; you do not need to change the page component. Entries currently open an external destination. Writing and news can link to your published articles or announcements; this site does not include a publishing editor or article pages yet.
 
-## 🚀 Deploying Changes
+## Photo and appearance
 
-This repo deploys automatically to GitHub Pages on every push to `main`.
+Replace `public/profile.jpg` to change the portrait. The crop and responsive sizes are set in `.portrait` in `src/index.css`. The image has reserved dimensions to avoid layout jumps.
 
-After making changes:
-```bash
-npm install
-npm run build
-git add .
-git commit -m "Update content"
-git push
-```
+The color variables are at the top of `src/index.css`. Links have visible keyboard focus styles, and motion respects the visitor's reduced-motion setting.
 
-Wait 2-3 minutes for GitHub Pages to update.
+## Preview and publish
 
-### One-time setup in GitHub
-- In your repo, go to **Settings → Pages**
-- Set **Source** to **GitHub Actions**
-
-## 🎨 Customizing Design
-
-- **Colors**: Update the CSS classes in `src/index.css`
-- **Layout**: Modify the JSX structure in `src/App.tsx`
-- **Fonts**: Change font-family in `:root` CSS
-
-Your website will be live at: `https://ayush-alag.github.io`
+Run `npm run dev` to preview, then `npm run build` before publishing. The `codex/personal-site-redesign` branch is separate from the live `main` branch. Pushing to `main` triggers the existing GitHub Pages deployment; changes on the redesign branch do not update the public website.

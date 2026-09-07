@@ -1,135 +1,69 @@
-import { Github, Linkedin, Mail } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
+import { personal, sections } from './content';
 
-// ============================================================================
-// EDIT YOUR CONTENT HERE - Easy to modify!
-// ============================================================================
-
-const PERSONAL_INFO = {
-  name: "Ayush Alag",
-  email: "aalag@stanford.edu",
-  profilePhoto: "/profile.jpg", // Add your photo to the public folder and update this path
-  links: {
-    // TODO: replace with the real Allergezy article URL
-    allergezyArticle: "https://www.sfchronicle.com/health/article/Why-is-there-not-something-better-Teen-13525123.php",
-  },
-  social: {
-    github: "https://github.com/ayushalag",
-    linkedin: "https://linkedin.com/in/ayushalag",
-    twitter: "https://x.com/Ayushalag1" // X/Twitter profile
-  }
-};
-
-// ============================================================================
-// WEBSITE COMPONENTS (You probably don't need to edit below this line)
-// ============================================================================
-
-// Custom X Logo Component
-const XLogo = ({ className }: { className?: string }) => (
-  <svg className={className} viewBox="0 0 24 24" fill="currentColor">
-    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-  </svg>
-);
+const visibleSections = sections.filter((section) => section.entries.length > 0);
 
 function App() {
   return (
-    <div className="min-h-screen bg-sophisticated">
-      <main className="px-8">
-        <section className="max-w-2xl mx-auto py-20">
-          <div className="flex flex-col">
-            {/* Photo */}
-            <div>
-              <div className="w-[140px] h-[140px] rounded-full overflow-hidden bg-gray-200">
-                {PERSONAL_INFO.profilePhoto && PERSONAL_INFO.profilePhoto !== "" ? (
-                  <img
-                    src={PERSONAL_INFO.profilePhoto}
-                    alt={PERSONAL_INFO.name}
-                    className="w-full h-full object-cover"
-                    style={{ objectPosition: '50% 70%' }}
-                    onError={(e) => {
-                      e.currentTarget.style.display = 'none';
-                      const fallback = e.currentTarget.nextElementSibling as HTMLElement;
-                      if (fallback) fallback.style.display = 'flex';
-                    }}
-                  />
-                ) : null}
-                <div
-                  className="w-full h-full flex items-center justify-center text-gray-600"
-                  style={{ display: PERSONAL_INFO.profilePhoto ? 'none' : 'flex' }}
-                >
-                  <div className="text-lg font-bold">
-                    {PERSONAL_INFO.name.split(' ').map((n) => n[0]).join('')}
-                  </div>
-                </div>
-              </div>
-            </div>
+    <div className="site-shell">
+      <a className="skip-link" href="#about">Skip to content</a>
+      <header className="site-header">
+        <a className="wordmark" href="#top" aria-label="Ayush Alag, back to top">a<span className="wordmark-slash">/</span>a<span className="signal" aria-hidden="true" /></a>
+        <nav aria-label="Main navigation">
+          <a href="#about">About</a>
+          {visibleSections.map((section) => <a key={section.id} href={`#${section.id}`}>{section.navLabel}</a>)}
+          <a href={`mailto:${personal.email}`}>Say hello <ArrowUpRight aria-hidden="true" /></a>
+        </nav>
+      </header>
 
-            {/* Copy */}
-            <div className="mt-5 mb-5 h-fit text-gray-800 leading-relaxed space-y-6">
-              <h1 className="text-[25px] font-bold text-gray-900">Hi, I'm Ayush.</h1>
+      <main id="top">
+        <section className="intro" aria-labelledby="name">
+          <div className="intro-copy">
+            <p className="eyebrow">Hi, I'm</p>
+            <h1 id="name">{personal.name}<span className="name-period">.</span></h1>
+            <p className="intro-line">Thinking in systems.<br />Interested in <em>people.</em></p>
+          </div>
+          <figure className="portrait">
+            <img src="/profile.jpg" width="144" height="174" alt="Ayush by the water" fetchPriority="high" />
+            <figcaption>occasionally outside ↗</figcaption>
+          </figure>
+        </section>
 
-              <p className="text-[16px] text-gray-700">
-                I'm currently studying parallel computing and model finetuning at Stanford, and spent the summer working on compound agents at Mithril. In a not-so-distant past, I was a developer at Five Rings working on trading signals and enjoyed trying every Indian restaurant in NYC. At Princeton, I spent 50% of my time taking graduate AI classes and 50% on three dance teams. I peaked in high school by developing the first genomic test for allergies and starting a{" "}
-                <a
-                  href={PERSONAL_INFO.links.allergezyArticle}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-gray-900 hover:underline hover:underline-offset-2"
-                >
-                  company
-                </a>
-                .
-              </p>
-
-              <p className="text-[16px] text-gray-700">
-                I enjoy thinking in systems and incentives, and am broadly interested in algorithmic design, societal development, and the intersection of technology and human behavior. In my free time, I enjoy writing and philosophizing.
-              </p>
-
-              <p className="text-[16px] text-gray-700">
-                I also angel invest in a handful of startups, and am always excited to chat with founders.
-              </p>
-
-              <div className="pt-2 text-sm text-gray-500">—</div>
-            </div>
-
-            <div className="flex items-center justify-start space-x-4 mt-[30px] mb-[30px] mx-2.5">
-              <a
-                href={PERSONAL_INFO.social.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="GitHub"
-                className="text-gray-600 hover:text-gray-900 transition-colors"
-              >
-                <Github className="w-5 h-5" />
-              </a>
-              <a
-                href={PERSONAL_INFO.social.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="LinkedIn"
-                className="text-gray-600 hover:text-gray-900 transition-colors"
-              >
-                <Linkedin className="w-5 h-5" />
-              </a>
-              <a
-                href={PERSONAL_INFO.social.twitter}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="X"
-                className="text-gray-600 hover:text-gray-900 transition-colors"
-              >
-                <XLogo className="w-5 h-5" />
-              </a>
-              <a
-                href={`mailto:${PERSONAL_INFO.email}`}
-                aria-label="Email"
-                className="text-gray-600 hover:text-gray-900 transition-colors"
-              >
-                <Mail className="w-5 h-5" />
-              </a>
-            </div>
+        <section className="section-grid about" id="about" aria-labelledby="about-title">
+          <h2 className="section-label" id="about-title"><span className="section-number">01 /</span> A little context</h2>
+          <div className="prose">
+            <p>I've worked on compound agents at Mithril and trading signals at Five Rings, and studied computer science at Stanford and Princeton. I'm drawn to AI, algorithmic design, and how incentives shape the world.</p>
+            <p>At Princeton, I split my time between graduate AI classes and three dance teams. In New York, I tried to eat at every Indian restaurant. I still make time for writing and philosophizing.</p>
+            <p>I also angel invest in a handful of startups. Always happy to talk with people building something interesting.</p>
           </div>
         </section>
+
+        {visibleSections.map((section, index) => (
+          <section className="section-grid" id={section.id} aria-labelledby={`${section.id}-title`} key={section.id}>
+            <h2 className="section-label" id={`${section.id}-title`}><span className="section-number">{String(index + 2).padStart(2, '0')} /</span>{section.title}</h2>
+            <ul className="entry-list">
+              {section.entries.map((entry) => (
+                <li key={entry.href}>
+                  <a className="entry-link" href={entry.href} target="_blank" rel="noreferrer">
+                    <div className="entry-heading"><h3>{entry.title}</h3><ArrowUpRight className="entry-arrow" aria-hidden="true" /></div>
+                    <p className="entry-description">{entry.description}</p>
+                    <span className="entry-meta">{entry.meta}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))}
       </main>
+
+      <footer className="site-footer">
+        <a className="hello-link" href={`mailto:${personal.email}`}>Good conversations welcome. <span className="hello-arrow"><ArrowUpRight aria-hidden="true" /></span></a>
+        <div className="social-links">
+          <a href={personal.github} target="_blank" rel="noreferrer">GitHub <ArrowUpRight aria-hidden="true" /></a>
+          <a href={personal.linkedin} target="_blank" rel="noreferrer">LinkedIn <ArrowUpRight aria-hidden="true" /></a>
+          <a href={personal.x} target="_blank" rel="noreferrer">X <ArrowUpRight aria-hidden="true" /></a>
+        </div>
+      </footer>
     </div>
   );
 }
